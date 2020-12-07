@@ -25,6 +25,7 @@ func main() {
 
 	response, err := riot.GetAccountByRiotId("<gameName>", "<tagLine>")
 	// response, err := riot.GetAccountByPuuid("<puuid>")
+	// response, err := riot.GetActiveShard("<puuid>", "<game>")
 
 	if err != nil {
 		fmt.Println(err)

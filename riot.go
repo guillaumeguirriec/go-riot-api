@@ -1,9 +1,8 @@
 // TODO: deal with rate limit
 // TODO: make use of debugging boolean
-// TODO: GetAccountByPuuid
-// TODO: GetActiveShards
 // TODO: give the possibility to choose how API key is included (query param or header param)
 // TODO: add tests
+// TODO: README.md
 
 package riot
 
@@ -17,9 +16,11 @@ import (
 )
 
 const (
-	AmericasRegion = "americas"
-	EuropeRegion   = "europe"
-	AsiaRegion     = "asia"
+	AmericasRegion     = "americas"
+	EuropeRegion       = "europe"
+	AsiaRegion         = "asia"
+	Valorant           = "val"
+	LegendsOfRuneterra = "lor"
 )
 
 type (
@@ -38,18 +39,13 @@ type (
 )
 
 func New(apiKey, region string, debugging bool) (*Riot, error) {
-
-	errorMessage := ""
-
 	if apiKey == "" {
-		errorMessage = fmt.Sprintf("API key not given")
+		errorMessage := fmt.Sprintf("API key not given")
+		return nil, errors.New(errorMessage)
 	}
 
 	if region != AmericasRegion && region != EuropeRegion && region != AsiaRegion {
-		errorMessage = fmt.Sprintf("Given region to execute against is not correct (given: %v, wanted: %v, %v or %v).", region, AmericasRegion, EuropeRegion, AsiaRegion)
-	}
-
-	if errorMessage != "" {
+		errorMessage := fmt.Sprintf("Given region to execute against is not correct (given: %v, wanted: %v, %v or %v).", region, AmericasRegion, EuropeRegion, AsiaRegion)
 		return nil, errors.New(errorMessage)
 	}
 
@@ -125,4 +121,28 @@ func (riot Riot) GetAccountByPuuid(puuid string) (AccountDto, error) {
 	}
 
 	return accountDto, nil
+}
+
+func (riot Riot) GetActiveShard(puuid, game string) (ActiveShardDto, error) {
+	var activeShardDto ActiveShardDto
+
+	if puuid == "" || game == "" {
+		errorMessage := fmt.Sprintf("Required parameters not given (puuid: %v, game: %v).", puuid, game)
+		return activeShardDto, errors.New(errorMessage)
+	}
+
+	if game != Valorant && game != LegendsOfRuneterra {
+		errorMessage := fmt.Sprintf("Given game is not correct (given: %v, wanted: %v or %v).", game, Valorant, LegendsOfRuneterra)
+		return activeShardDto, errors.New(errorMessage)
+	}
+
+	responseBody := riot.sendGetRequest("https://" + riot.region + ".api.riotgames.com/riot/account/v1/active-shards/by-game/" + game + "/by-puuid/" + puuid)
+
+	err := json.Unmarshal(responseBody, &activeShardDto)
+
+	if err != nil {
+		// TODO: deal with error
+	}
+
+	return activeShardDto, nil
 }
