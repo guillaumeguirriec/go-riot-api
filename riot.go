@@ -88,9 +88,15 @@ func (riot Riot) sendGetRequest(endpoint string) []byte {
 }
 
 func (riot Riot) GetAccountByRiotId(gameName, tagLine string) (AccountDto, error) {
+	var accountDto AccountDto
+
+	if gameName == "" || tagLine == "" {
+		errorMessage := fmt.Sprintf("Required parameters not given (gameName: %v, tagLine: %v).", gameName, tagLine)
+		return accountDto, errors.New(errorMessage)
+	}
+	
 	responseJsonBody := riot.sendGetRequest("https://" + riot.region + ".api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + gameName + "/" + tagLine)
 
-	var accountDto AccountDto
 	err := json.Unmarshal(responseJsonBody, &accountDto)
 
 	if err != nil {
