@@ -24,7 +24,8 @@ func main() {
 	}
 
 	response, err := riot.GetAccountByRiotId("<gameName>", "<tagLine>")
-	
+	// response, err := riot.GetAccountByPuuid("<puuid>")
+
 	if err != nil {
 		fmt.Println(err)
 	} else {

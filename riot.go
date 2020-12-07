@@ -2,6 +2,8 @@
 // TODO: make use of debugging boolean
 // TODO: GetAccountByPuuid
 // TODO: GetActiveShards
+// TODO: give the possibility to choose how API key is included (query param or header param)
+// TODO: add tests
 
 package riot
 
@@ -94,10 +96,29 @@ func (riot Riot) GetAccountByRiotId(gameName, tagLine string) (AccountDto, error
 		errorMessage := fmt.Sprintf("Required parameters not given (gameName: %v, tagLine: %v).", gameName, tagLine)
 		return accountDto, errors.New(errorMessage)
 	}
-	
-	responseJsonBody := riot.sendGetRequest("https://" + riot.region + ".api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + gameName + "/" + tagLine)
 
-	err := json.Unmarshal(responseJsonBody, &accountDto)
+	responseBody := riot.sendGetRequest("https://" + riot.region + ".api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + gameName + "/" + tagLine)
+
+	err := json.Unmarshal(responseBody, &accountDto)
+
+	if err != nil {
+		// TODO: deal with error
+	}
+
+	return accountDto, nil
+}
+
+func (riot Riot) GetAccountByPuuid(puuid string) (AccountDto, error) {
+	var accountDto AccountDto
+
+	if puuid == "" {
+		errorMessage := fmt.Sprintf("Required parameters not given (puuid: %v).", puuid)
+		return accountDto, errors.New(errorMessage)
+	}
+
+	responseBody := riot.sendGetRequest("https://" + riot.region + ".api.riotgames.com/riot/account/v1/accounts/by-puuid/" + puuid)
+
+	err := json.Unmarshal(responseBody, &accountDto)
 
 	if err != nil {
 		// TODO: deal with error
