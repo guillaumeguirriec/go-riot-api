@@ -1,10 +1,10 @@
 <p align="center">
-  <a href="https://www.riotgames.com"><img src="https://www.riotgames.com/darkroom/800/4055f068b0bc39bbe60d08491a39994b:0ff2ceae3e7bed5e6f2c9c5a1aded2c0/riot-fist-container-white-red.png" width="300" title="Riot Fist Container White (Red)"></a>
+  <a href="https://www.riotgames.com"><img src="https://www.riotgames.com/darkroom/800/4055f068b0bc39bbe60d08491a39994b:0ff2ceae3e7bed5e6f2c9c5a1aded2c0/riot-fist-container-white-red.png" width="250" title="Riot Fist Container White (Red)"></a>
 </p>
 
 # Go Riot API
 
-## Table of Contents
+## 🎯 Table of Contents
 
 *	[Installation](#installation)
 * [Getting started](#getting-started)
@@ -13,7 +13,7 @@
   *	[GetAccountByPuuid](#getAccountByPuuid)
   *	[GetActiveShard](#getActiveShard)
 
-## Installation
+## ⚙️ Installation
 
 ```
 Get:
@@ -23,30 +23,11 @@ Import:
 import("github.com/guillaumeguirriec/go-riot-api")
 ```
 
-## Getting started
+## ⚡️ Getting started
 
-## Usage
+## 👀 Usage
 
-### GetAccountByRiotId
-
-```go
-```
-
-<details>
-  <summary>JSON response</summary>
-
-```go
-```
-</details>
-
-<details>
-  <summary>Struct definition</summary>
-
-```go
-```
-</details>
-
-### GetAccountByPuuid
+### 📖 GetAccountByRiotId
 
 ```go
 ```
@@ -65,7 +46,26 @@ import("github.com/guillaumeguirriec/go-riot-api")
 ```
 </details>
 
-### GetActiveShard
+### 📖 GetAccountByPuuid
+
+```go
+```
+
+<details>
+  <summary>JSON response</summary>
+
+```go
+```
+</details>
+
+<details>
+  <summary>Struct definition</summary>
+
+```go
+```
+</details>
+
+### 📖 GetActiveShard
 
 ```go
 ```
