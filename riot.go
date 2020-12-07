@@ -44,6 +44,11 @@ func New(apiKey, region string, debugging bool) (*Riot, error) {
 		return nil, errors.New(errorMessage)
 	}
 
+	if region == "" {
+		errorMessage := fmt.Sprintf("Region not given")
+		return nil, errors.New(errorMessage)
+	}
+
 	if region != AmericasRegion && region != EuropeRegion && region != AsiaRegion {
 		errorMessage := fmt.Sprintf("Given region to execute against is not correct (given: %v, wanted: %v, %v or %v).", region, AmericasRegion, EuropeRegion, AsiaRegion)
 		return nil, errors.New(errorMessage)
