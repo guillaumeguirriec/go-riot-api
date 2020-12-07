@@ -17,12 +17,16 @@ func PrintResult(value interface{}) (err error) {
 }
 
 func main() {
-	riot := riot.New("<API key>", riot.EuropeRegion, false)
-
-	response, err := riot.GetAccountByRiotId("<gameName>", "<tagLine>")
+	riot, err := riot.New("<API key>", riot.EuropeRegion, false)
 
 	if err != nil {
-		fmt.Println(response)
+		fmt.Println(err)
+	}
+
+	response, err := riot.GetAccountByRiotId("<gameName>", "<tagLine>")
+	
+	if err != nil {
+		fmt.Println(err)
 	} else {
 		PrintResult(response)
 	}

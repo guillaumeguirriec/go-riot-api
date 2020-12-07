@@ -22,11 +22,11 @@ const (
 
 type (
 	AccountDto struct {
-		puuid, gameName, tagLine string
+		Puuid, GameName, TagLine string
 	}
 
 	ActiveShardDto struct {
-		puuid, game, activeShard string
+		Puuid, Game, ActiveShard string
 	}
 
 	Riot struct {
