@@ -1,7 +1,6 @@
 // TODO: deal with rate limit
 // TODO: make use of debugging boolean
 // TODO: give the possibility to choose how API key is included (query param or header param)
-// TODO: add tests
 // TODO: README.md
 
 package riot
