@@ -1,6 +1,5 @@
 // TODO: deal with rate limit
 // TODO: make use of debugging boolean
-// TODO: give the possibility to choose how API key is included (query param or header param)
 // TODO: README.md
 
 package riot
@@ -20,6 +19,8 @@ const (
 	AsiaRegion         = "asia"
 	Valorant           = "val"
 	LegendsOfRuneterra = "lor"
+	HeaderParam        = "headerParam"
+	QueryParam         = "queryParam"
 )
 
 type (
@@ -32,12 +33,12 @@ type (
 	}
 
 	Riot struct {
-		apiKey, region string
-		debugging      bool
+		apiKey, region, includeApiKeyAs string
+		debugging                       bool
 	}
 )
 
-func New(apiKey, region string, debugging bool) (*Riot, error) {
+func New(apiKey, region, includeApiKeyAs string, debugging bool) (*Riot, error) {
 	if apiKey == "" {
 		errorMessage := fmt.Sprintf("API key not given")
 		return nil, errors.New(errorMessage)
@@ -53,10 +54,21 @@ func New(apiKey, region string, debugging bool) (*Riot, error) {
 		return nil, errors.New(errorMessage)
 	}
 
+	if includeApiKeyAs == "" {
+		errorMessage := fmt.Sprintf("Way to include API key not given")
+		return nil, errors.New(errorMessage)
+	}
+
+	if includeApiKeyAs != HeaderParam && includeApiKeyAs != QueryParam {
+		errorMessage := fmt.Sprintf("Given way to include API key is not correct (given: %v, wanted: %v or %v).", includeApiKeyAs, HeaderParam, QueryParam)
+		return nil, errors.New(errorMessage)
+	}
+
 	riot := new(Riot)
 
 	riot.apiKey = apiKey
 	riot.region = region
+	riot.includeApiKeyAs = includeApiKeyAs
 	riot.debugging = debugging
 
 	return riot, nil
@@ -70,7 +82,11 @@ func (riot Riot) sendGetRequest(endpoint string) []byte {
 		// TODO: deal with error
 	}
 
-	request.Header.Set("X-Riot-Token", riot.apiKey)
+	if riot.includeApiKeyAs == HeaderParam {
+		request.Header.Set("X-Riot-Token", riot.apiKey)
+	} else if riot.includeApiKeyAs == QueryParam {
+		endpoint = endpoint + "?api_key=" + riot.apiKey
+	}
 
 	response, err := httpClient.Do(request)
 

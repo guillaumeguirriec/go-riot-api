@@ -5,31 +5,47 @@ import (
 )
 
 func TestNewApiKeyEmpty(t *testing.T) {
-	riot, err := New("", EuropeRegion, false)
+	riot, err := New("", EuropeRegion, HeaderParam, false)
 
 	if riot != nil || err == nil {
-		t.Fatalf(`New("", EuropeRegion, false) = %v, %v, want nil, error`, riot, err)
+		t.Fatalf(`New("", EuropeRegion, HeaderParam, false) = %v, %v, want nil, error`, riot, err)
 	}
 }
 
 func TestNewRegionEmpty(t *testing.T) {
-	riot, err := New("<API key>", "", false)
+	riot, err := New("<API key>", "", HeaderParam, false)
 
 	if riot != nil || err == nil {
-		t.Fatalf(`New("<API key>", "", false) = %v, %v, want nil, error`, riot, err)
+		t.Fatalf(`New("<API key>", "", HeaderParam, false) = %v, %v, want nil, error`, riot, err)
 	}
 }
 
 func TestNewWrongRegion(t *testing.T) {
-	riot, err := New("<API key>", "WrongRegion", false)
+	riot, err := New("<API key>", "WrongRegion", HeaderParam, false)
 
 	if riot != nil || err == nil {
-		t.Fatalf(`New("<API key>", "WrongRegion", false) = %v, %v, want nil, error`, riot, err)
+		t.Fatalf(`New("<API key>", "WrongRegion", HeaderParam, false) = %v, %v, want nil, error`, riot, err)
+	}
+}
+
+func TestNewIncludeApiKeyAsEmpty(t *testing.T) {
+	riot, err := New("<API key>", EuropeRegion, "", false)
+
+	if riot != nil || err == nil {
+		t.Fatalf(`New("<API key>", EuropeRegion, "", false) = %v, %v, want nil, error`, riot, err)
+	}
+}
+
+func TestNewWrongIncludeApiKeyAs(t *testing.T) {
+	riot, err := New("<API key>", EuropeRegion, "WrongIncludeApiKeyAs", false)
+
+	if riot != nil || err == nil {
+		t.Fatalf(`New("<API key>", EuropeRegion, "WrongIncludeApiKeyAs", false) = %v, %v, want nil, error`, riot, err)
 	}
 }
 
 func TestGetAccountByRiotIdGameNameEmpty(t *testing.T) {
-	riot, err := New("<API key>", EuropeRegion, false)
+	riot, err := New("<API key>", EuropeRegion, HeaderParam, false)
 
 	accountDto, err := riot.GetAccountByRiotId("", "<tagLine>")
 
@@ -39,7 +55,7 @@ func TestGetAccountByRiotIdGameNameEmpty(t *testing.T) {
 }
 
 func TestGetAccountByRiotIdTagLineEmpty(t *testing.T) {
-	riot, err := New("<API key>", EuropeRegion, false)
+	riot, err := New("<API key>", EuropeRegion, HeaderParam, false)
 
 	accountDto, err := riot.GetAccountByRiotId("<gameName>", "")
 
@@ -49,7 +65,7 @@ func TestGetAccountByRiotIdTagLineEmpty(t *testing.T) {
 }
 
 func TestGetAccountByRiotIdAllParametersEmpty(t *testing.T) {
-	riot, err := New("<API key>", EuropeRegion, false)
+	riot, err := New("<API key>", EuropeRegion, HeaderParam, false)
 
 	accountDto, err := riot.GetAccountByRiotId("", "")
 
@@ -59,7 +75,7 @@ func TestGetAccountByRiotIdAllParametersEmpty(t *testing.T) {
 }
 
 func TestGetAccountByPuuidPuuidEmpty(t *testing.T) {
-	riot, err := New("<API key>", EuropeRegion, false)
+	riot, err := New("<API key>", EuropeRegion, HeaderParam, false)
 
 	accountDto, err := riot.GetAccountByPuuid("")
 
@@ -69,7 +85,7 @@ func TestGetAccountByPuuidPuuidEmpty(t *testing.T) {
 }
 
 func TestGetActiveShardPuuidEmpty(t *testing.T) {
-	riot, err := New("<API key>", EuropeRegion, false)
+	riot, err := New("<API key>", EuropeRegion, HeaderParam, false)
 
 	activeShardDto, err := riot.GetActiveShard("", "<game>")
 
@@ -79,7 +95,7 @@ func TestGetActiveShardPuuidEmpty(t *testing.T) {
 }
 
 func TestGetActiveShardGameEmpty(t *testing.T) {
-	riot, err := New("<API key>", EuropeRegion, false)
+	riot, err := New("<API key>", EuropeRegion, HeaderParam, false)
 
 	activeShardDto, err := riot.GetActiveShard("<puuid>", "")
 
@@ -89,7 +105,7 @@ func TestGetActiveShardGameEmpty(t *testing.T) {
 }
 
 func TestGetActiveShardAllParametersEmpty(t *testing.T) {
-	riot, err := New("<API key>", EuropeRegion, false)
+	riot, err := New("<API key>", EuropeRegion, HeaderParam, false)
 
 	activeShardDto, err := riot.GetActiveShard("", "")
 
@@ -99,7 +115,7 @@ func TestGetActiveShardAllParametersEmpty(t *testing.T) {
 }
 
 func TestGetActiveShardWrongGame(t *testing.T) {
-	riot, err := New("<API key>", EuropeRegion, false)
+	riot, err := New("<API key>", EuropeRegion, HeaderParam, false)
 
 	activeShardDto, err := riot.GetActiveShard("<puuid>", "wrongGame")
 

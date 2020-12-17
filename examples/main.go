@@ -17,7 +17,7 @@ func PrintResult(value interface{}) (err error) {
 }
 
 func main() {
-	riot, err := riot.New("<API key>", riot.EuropeRegion, false)
+	riot, err := riot.New("<API key>", riot.EuropeRegion, riot.HeaderParam, false)
 
 	if err != nil {
 		fmt.Println(err)
