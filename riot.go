@@ -85,6 +85,7 @@ func (riot Riot) sendGetRequest(endpoint string) []byte {
 	if riot.includeApiKeyAs == HeaderParam {
 		request.Header.Set("X-Riot-Token", riot.apiKey)
 	} else if riot.includeApiKeyAs == QueryParam {
+		request.Header.Set("X-Riot-Token", riot.apiKey)
 		endpoint = endpoint + "?api_key=" + riot.apiKey
 	}
 
