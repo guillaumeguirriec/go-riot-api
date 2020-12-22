@@ -8,12 +8,12 @@ This is the Go wrapper for the ACCOUNT-V1 Riot API. For more information consult
 
 ## 🎯 Table of Contents
 
-*	[Installation](#installation)
+* [Installation](#installation)
 * [Getting started](#getting-started)
 * [Usage](#usage)
-  *	[GetAccountByRiotId](#getAccountByRiotId)
-  *	[GetAccountByPuuid](#getAccountByPuuid)
-  *	[GetActiveShard](#getActiveShard)
+  * [GetAccountByRiotId](#getAccountByRiotId)
+  * [GetAccountByPuuid](#getAccountByPuuid)
+  * [GetActiveShard](#getActiveShard)
 
 <a name="installation"></a>
 
@@ -46,7 +46,7 @@ func main() {
 		fmt.Println(err)
   	}
   
-  ...
+  	...
 }
 ```
 
@@ -62,9 +62,9 @@ func main() {
 response, err := riot.GetAccountByRiotId("smile", "6578")
 
 if err != nil {
-  fmt.Println(err)
+	fmt.Println(err)
 } else {
-  fmt.Printf("%+v\n", response)
+	fmt.Printf("%+v\n", response)
 }
 ```
 
@@ -85,7 +85,7 @@ if err != nil {
 
 ```go
 type AccountDto struct {
-  Puuid, GameName, TagLine string
+	Puuid, GameName, TagLine string
 }
 ```
 </details>
@@ -100,9 +100,9 @@ For detailed information about the endpoint called, please refer to the [ACCOUNT
 response, err := riot.GetAccountByPuuid("jUr1OkZKAS4AW6amrpxOmfYin3w9P-jiVuI7UtNmyrJRL9Z5B0R_Qzs6h7pEwCThABtBODsoyhcDbQ")
 
 if err != nil {
-  fmt.Println(err)
+	fmt.Println(err)
 } else {
-  fmt.Printf("%+v\n", response)
+	fmt.Printf("%+v\n", response)
 }
 ```
 
@@ -123,7 +123,7 @@ if err != nil {
 
 ```go
 type AccountDto struct {
-  Puuid, GameName, TagLine string
+	Puuid, GameName, TagLine string
 }
 ```
 </details>
@@ -138,9 +138,9 @@ For detailed information about the endpoint called, please refer to the [ACCOUNT
 response, err := riot.GetActiveShard("jUr1OkZKAS4AW6amrpxOmfYin3w9P-jiVuI7UtNmyrJRL9Z5B0R_Qzs6h7pEwCThABtBODsoyhcDbQ", "val")
 
 if err != nil {
-  fmt.Println(err)
+	fmt.Println(err)
 } else {
-  fmt.Printf("%+v\n", response)
+	fmt.Printf("%+v\n", response)
 }
 ```
 
