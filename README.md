@@ -13,6 +13,8 @@
   *	[GetAccountByPuuid](#getAccountByPuuid)
   *	[GetActiveShard](#getActiveShard)
 
+<a name="installation"></a>
+
 ## ⚙️ Installation
 
 ```
@@ -23,19 +25,37 @@ Import:
 import("github.com/guillaumeguirriec/go-riot-api")
 ```
 
+<a name="getting-started"></a>
+
 ## ⚡️ Getting started
 
+<a name="usage"></a>
+
 ## 👀 Usage
+
+<a name="getAccountByRiotId"></a>
 
 ### 📖 GetAccountByRiotId
 
 ```go
+response, err := riot.GetAccountByRiotId("smile", "6578")
+
+if err != nil {
+	fmt.Println(err)
+} else {
+	PrintResult(response)
+}
 ```
 
 <details>
   <summary>JSON response</summary>
 
 ```go
+{
+    "puuid": "jUr1OkZKAS4AW6amrpxOmfYin3w9P-jiVuI7UtNmyrJRL9Z5B0R_Qzs6h7pEwCThABtBODsoyhcDbQ",
+    "gameName": "smile",
+    "tagLine": "6578"
+}
 ```
 </details>
 
@@ -43,18 +63,35 @@ import("github.com/guillaumeguirriec/go-riot-api")
   <summary>Struct definition</summary>
 
 ```go
+type AccountDto struct {
+  Puuid, GameName, TagLine string
+}
 ```
 </details>
+
+<a name="getAccountByPuuid"></a>
 
 ### 📖 GetAccountByPuuid
 
 ```go
+response, err := riot.GetAccountByPuuid("jUr1OkZKAS4AW6amrpxOmfYin3w9P-jiVuI7UtNmyrJRL9Z5B0R_Qzs6h7pEwCThABtBODsoyhcDbQ")
+
+if err != nil {
+	fmt.Println(err)
+} else {
+	PrintResult(response)
+}
 ```
 
 <details>
   <summary>JSON response</summary>
 
 ```go
+{
+    "puuid": "jUr1OkZKAS4AW6amrpxOmfYin3w9P-jiVuI7UtNmyrJRL9Z5B0R_Qzs6h7pEwCThABtBODsoyhcDbQ",
+    "gameName": "smile",
+    "tagLine": "6578"
+}
 ```
 </details>
 
@@ -62,18 +99,35 @@ import("github.com/guillaumeguirriec/go-riot-api")
   <summary>Struct definition</summary>
 
 ```go
+type AccountDto struct {
+  Puuid, GameName, TagLine string
+}
 ```
 </details>
+
+<a name="getActiveShard"></a>
 
 ### 📖 GetActiveShard
 
 ```go
+response, err := riot.GetActiveShard("jUr1OkZKAS4AW6amrpxOmfYin3w9P-jiVuI7UtNmyrJRL9Z5B0R_Qzs6h7pEwCThABtBODsoyhcDbQ", "val")
+
+if err != nil {
+	fmt.Println(err)
+} else {
+	PrintResult(response)
+}
 ```
 
 <details>
   <summary>JSON response</summary>
 
 ```go
+{
+    "puuid": "jUr1OkZKAS4AW6amrpxOmfYin3w9P-jiVuI7UtNmyrJRL9Z5B0R_Qzs6h7pEwCThABtBODsoyhcDbQ",
+    "game": "val",
+    "activeShard": "eu"
+}
 ```
 </details>
 
@@ -81,5 +135,8 @@ import("github.com/guillaumeguirriec/go-riot-api")
   <summary>Struct definition</summary>
 
 ```go
+type ActiveShardDto struct {
+	Puuid, Game, ActiveShard string
+}
 ```
 </details>
