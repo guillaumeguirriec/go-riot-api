@@ -1,5 +1,4 @@
 // TODO: deal with rate limit
-// TODO: make use of debugging boolean
 
 package riot
 
@@ -10,6 +9,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 const (
@@ -71,6 +71,12 @@ func New(apiKey, region, includeApiKeyAs string, debugging bool) (*Riot, error) 
 	riot.debugging = debugging
 
 	return riot, nil
+}
+
+func (riot Riot) Debug(messageToPrint string) {
+	if riot.debugging {
+		fmt.Println(time.Now().Format(time.RFC1123) + " Debug: " + messageToPrint)
+	}
 }
 
 func (riot Riot) sendGetRequest(endpoint string) []byte {
