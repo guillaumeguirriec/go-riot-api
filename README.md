@@ -4,6 +4,8 @@
 
 # Go Riot API
 
+This is the Go wrapper for the ACCOUNT-V1 Riot API. For more information consult the [ACCOUNT-V1 Riot API documentation](https://developer.riotgames.com/apis#account-v1).
+
 ## 🎯 Table of Contents
 
 *	[Installation](#installation)
@@ -29,6 +31,25 @@ import("github.com/guillaumeguirriec/go-riot-api")
 
 ## ⚡️ Getting started
 
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/guillaumeguirriec/go-riot-api"
+)
+
+func main() {
+	riot, err := riot.New("<API key>", riot.EuropeRegion, riot.HeaderParam, false)
+
+	if err != nil {
+		fmt.Println(err)
+  }
+  
+  ...
+}
+```
+
 <a name="usage"></a>
 
 ## 👀 Usage
@@ -41,9 +62,9 @@ import("github.com/guillaumeguirriec/go-riot-api")
 response, err := riot.GetAccountByRiotId("smile", "6578")
 
 if err != nil {
-	fmt.Println(err)
+  fmt.Println(err)
 } else {
-	PrintResult(response)
+  fmt.Printf("%+v\n", response)
 }
 ```
 
@@ -68,6 +89,8 @@ type AccountDto struct {
 }
 ```
 </details>
+
+For detailed information about the endpoint called, please refer to the [ACCOUNT-V1 Riot API "Get account by riot id" method documentation](https://developer.riotgames.com/apis#account-v1/GET_getByRiotId).
 
 <a name="getAccountByPuuid"></a>
 
@@ -77,9 +100,9 @@ type AccountDto struct {
 response, err := riot.GetAccountByPuuid("jUr1OkZKAS4AW6amrpxOmfYin3w9P-jiVuI7UtNmyrJRL9Z5B0R_Qzs6h7pEwCThABtBODsoyhcDbQ")
 
 if err != nil {
-	fmt.Println(err)
+  fmt.Println(err)
 } else {
-	PrintResult(response)
+  fmt.Printf("%+v\n", response)
 }
 ```
 
@@ -105,6 +128,8 @@ type AccountDto struct {
 ```
 </details>
 
+For detailed information about the endpoint called, please refer to the [ACCOUNT-V1 Riot API "Get account by puuid" method documentation](https://developer.riotgames.com/apis#account-v1/GET_getByPuuid).
+
 <a name="getActiveShard"></a>
 
 ### 📖 GetActiveShard
@@ -113,9 +138,9 @@ type AccountDto struct {
 response, err := riot.GetActiveShard("jUr1OkZKAS4AW6amrpxOmfYin3w9P-jiVuI7UtNmyrJRL9Z5B0R_Qzs6h7pEwCThABtBODsoyhcDbQ", "val")
 
 if err != nil {
-	fmt.Println(err)
+  fmt.Println(err)
 } else {
-	PrintResult(response)
+  fmt.Printf("%+v\n", response)
 }
 ```
 
@@ -140,3 +165,5 @@ type ActiveShardDto struct {
 }
 ```
 </details>
+
+For detailed information about the endpoint called, please refer to the [ACCOUNT-V1 Riot API "Get active shard for a player" method documentation](https://developer.riotgames.com/apis#account-v1/GET_getActiveShard).
