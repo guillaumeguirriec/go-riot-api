@@ -1,6 +1,5 @@
 // TODO: deal with rate limit
 // TODO: make use of debugging boolean
-// TODO: README.md
 
 package riot
 
