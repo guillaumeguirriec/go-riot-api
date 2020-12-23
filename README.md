@@ -4,7 +4,7 @@
 
 # Go Riot API
 
-This is the Go wrapper for the ACCOUNT-V1 Riot API. For more information consult the [ACCOUNT-V1 Riot API documentation](https://developer.riotgames.com/apis#account-v1).
+A Go wrapper for the ACCOUNT-V1 Riot API. For more information consult the [ACCOUNT-V1 Riot API documentation](https://developer.riotgames.com/apis#account-v1).
 
 ## 🎯 Table of Contents
 

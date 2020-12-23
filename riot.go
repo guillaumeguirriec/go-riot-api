@@ -1,5 +1,3 @@
-// TODO: deal with rate limit
-
 package riot
 
 import (
@@ -35,7 +33,46 @@ type (
 		apiKey, region, includeApiKeyAs string
 		debugging                       bool
 	}
+
+	Status struct {
+		Message    string
+		StatusCode int
+	}
+
+	CustomError struct {
+		Status Status `json:"status"`
+	}
+
+	RiotError struct {
+		Err         error
+		CustomError CustomError
+	}
 )
+
+func printError(errorToPrint string) {
+	fmt.Println(time.Now().Format(time.RFC1123) + " ERROR: " + errorToPrint)
+}
+
+func handleAPIError(jsonResponse []byte) error {
+	var customError CustomError
+	err := json.Unmarshal(jsonResponse, &customError)
+
+	if err != nil {
+		return RiotError{Err: err}
+	}
+
+	return RiotError{CustomError: customError}
+}
+
+func (riotError RiotError) Error() string {
+	if riotError.Err != nil {
+		err := riotError.Err.Error()
+		return err
+	} else {
+		errorLogTime := time.Now().Format(time.RFC1123)
+		return fmt.Sprintf("%s API ERROR: %d %s", errorLogTime, riotError.CustomError.Status.StatusCode, riotError.CustomError.Status.Message)
+	}
+}
 
 func New(apiKey, region, includeApiKeyAs string, debugging bool) (*Riot, error) {
 	if apiKey == "" {
@@ -73,9 +110,9 @@ func New(apiKey, region, includeApiKeyAs string, debugging bool) (*Riot, error) 
 	return riot, nil
 }
 
-func (riot Riot) Debug(messageToPrint string) {
+func (riot Riot) PrintDebugMessage(debugMessageToPrint string) {
 	if riot.debugging {
-		fmt.Println(time.Now().Format(time.RFC1123) + " Debug: " + messageToPrint)
+		fmt.Println(time.Now().Format(time.RFC1123) + " DEBUG: " + debugMessageToPrint)
 	}
 }
 
@@ -84,7 +121,7 @@ func (riot Riot) sendGetRequest(endpoint string) []byte {
 	request, err := http.NewRequest("GET", endpoint, bytes.NewBuffer(nil))
 
 	if err != nil {
-		// TODO: deal with error
+		printError("Caught error " + err.Error())
 	}
 
 	if riot.includeApiKeyAs == HeaderParam {
@@ -97,7 +134,7 @@ func (riot Riot) sendGetRequest(endpoint string) []byte {
 	response, err := httpClient.Do(request)
 
 	if err != nil {
-		// TODO: deal with error
+		printError("Caught error " + err.Error())
 	}
 
 	defer response.Body.Close()
@@ -105,7 +142,7 @@ func (riot Riot) sendGetRequest(endpoint string) []byte {
 	responseBody, err := ioutil.ReadAll(response.Body)
 
 	if err != nil {
-		// TODO: deal with error
+		printError("Caught error " + err.Error())
 	}
 
 	return responseBody
@@ -124,7 +161,7 @@ func (riot Riot) GetAccountByRiotId(gameName, tagLine string) (AccountDto, error
 	err := json.Unmarshal(responseBody, &accountDto)
 
 	if err != nil {
-		// TODO: deal with error
+		return AccountDto{}, handleAPIError(responseBody)
 	}
 
 	return accountDto, nil
@@ -143,7 +180,7 @@ func (riot Riot) GetAccountByPuuid(puuid string) (AccountDto, error) {
 	err := json.Unmarshal(responseBody, &accountDto)
 
 	if err != nil {
-		// TODO: deal with error
+		return AccountDto{}, handleAPIError(responseBody)
 	}
 
 	return accountDto, nil
@@ -167,7 +204,7 @@ func (riot Riot) GetActiveShard(puuid, game string) (ActiveShardDto, error) {
 	err := json.Unmarshal(responseBody, &activeShardDto)
 
 	if err != nil {
-		// TODO: deal with error
+		return ActiveShardDto{}, handleAPIError(responseBody)
 	}
 
 	return activeShardDto, nil
