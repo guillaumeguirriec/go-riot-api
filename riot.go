@@ -36,7 +36,7 @@ type (
 
 	Status struct {
 		Message    string
-		StatusCode int
+		StatusCode int `json:"status_code"`
 	}
 
 	CustomError struct {
