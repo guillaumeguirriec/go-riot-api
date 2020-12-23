@@ -161,6 +161,10 @@ func (riot Riot) GetAccountByRiotId(gameName, tagLine string) (AccountDto, error
 	err := json.Unmarshal(responseBody, &accountDto)
 
 	if err != nil {
+		return AccountDto{}, RiotError{Err: err}
+	}
+
+	if accountDto.Puuid == "" || accountDto.GameName == "" || accountDto.TagLine == "" {
 		return AccountDto{}, handleAPIError(responseBody)
 	}
 
@@ -180,6 +184,10 @@ func (riot Riot) GetAccountByPuuid(puuid string) (AccountDto, error) {
 	err := json.Unmarshal(responseBody, &accountDto)
 
 	if err != nil {
+		return AccountDto{}, RiotError{Err: err}
+	}
+
+	if accountDto.Puuid == "" || accountDto.GameName == "" || accountDto.TagLine == "" {
 		return AccountDto{}, handleAPIError(responseBody)
 	}
 
@@ -204,6 +212,10 @@ func (riot Riot) GetActiveShard(puuid, game string) (ActiveShardDto, error) {
 	err := json.Unmarshal(responseBody, &activeShardDto)
 
 	if err != nil {
+		return ActiveShardDto{}, RiotError{Err: err}
+	}
+
+	if activeShardDto.Puuid == "" || activeShardDto.Game == "" || activeShardDto.ActiveShard == "" {
 		return ActiveShardDto{}, handleAPIError(responseBody)
 	}
 
